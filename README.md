@@ -1,5 +1,3 @@
-<img align="right" width="420" src="assets/hero.svg" alt="skillmaxxing graphic">
-
 # skillmaxxing
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-0f172a.svg?style=for-the-badge)](LICENSE)
@@ -7,6 +5,8 @@
 ![Core Principles](https://img.shields.io/badge/core_principles-8-1f2937.svg?style=for-the-badge)
 ![Harnesses](https://img.shields.io/badge/harnesses-8-334155.svg?style=for-the-badge)
 ![Install](https://img.shields.io/badge/install-one_command-475569.svg?style=for-the-badge)
+
+<img align="right" width="420" src="assets/hero.svg" alt="skillmaxxing graphic">
 
 Inspired by [forrestchang/andrej-karpathy-skills](https://github.com/forrestchang/andrej-karpathy-skills).
 
