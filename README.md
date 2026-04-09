@@ -1,3 +1,5 @@
+<img align="right" width="420" src="assets/hero.svg" alt="skillmaxxing graphic">
+
 # skillmaxxing
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-0f172a.svg?style=for-the-badge)](LICENSE)
@@ -19,6 +21,8 @@ If you have ever watched an agent:
 - or give you no clean way to tell whether it actually worked
 
 this repo is for that.
+
+<br clear="right">
 
 ## The Problem
 
