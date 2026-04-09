@@ -24,7 +24,7 @@ this repo is for that.
 
 <br clear="right">
 
-**Works with:** ![Codex](https://img.shields.io/badge/Codex-supported-111827?style=flat-square) ![OpenCode](https://img.shields.io/badge/OpenCode-supported-1f2937?style=flat-square) ![Claude Code](https://img.shields.io/badge/Claude_Code-supported-334155?style=flat-square) ![Cursor](https://img.shields.io/badge/Cursor-supported-475569?style=flat-square) ![Windsurf](https://img.shields.io/badge/Windsurf-supported-64748b?style=flat-square) ![Gemini CLI](https://img.shields.io/badge/Gemini_CLI-supported-0f172a?style=flat-square) ![Continue](https://img.shields.io/badge/Continue-supported-374151?style=flat-square) ![Aider](https://img.shields.io/badge/Aider-supported-4b5563?style=flat-square)
+**Works with:** ![Codex](https://img.shields.io/badge/Codex-111827?style=flat-square&logo=openai&logoColor=white) ![OpenCode](https://img.shields.io/badge/OpenCode-1f2937?style=flat-square&logoColor=white) ![Claude Code](https://img.shields.io/badge/Claude_Code-D97757?style=flat-square&logo=anthropic&logoColor=white) ![Cursor](https://img.shields.io/badge/Cursor-000000?style=flat-square&logo=cursor&logoColor=white) ![Windsurf](https://img.shields.io/badge/Windsurf-0EA5E9?style=flat-square&logo=windsurf&logoColor=white) ![Gemini CLI](https://img.shields.io/badge/Gemini_CLI-4285F4?style=flat-square&logo=googlegemini&logoColor=white) ![Continue](https://img.shields.io/badge/Continue-374151?style=flat-square&logoColor=white) ![Aider](https://img.shields.io/badge/Aider-4b5563?style=flat-square&logoColor=white)
 
 ## The Problem
 
