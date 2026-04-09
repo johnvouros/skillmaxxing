@@ -1,0 +1,13 @@
+---
+description: Portable multi-mode agent operating system for routing tasks across research, validation, hardening, polish, and workflow phases.
+alwaysApply: true
+---
+
+# Agent Skills System
+
+@agent-skills-system/SKILL.md
+
+- Keep one active mode per phase
+- Use the decision hierarchy to resolve conflicts
+- Do not blend modes into one voice
+- If this rule and the canonical skill disagree, the canonical skill wins

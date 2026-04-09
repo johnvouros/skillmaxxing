@@ -1,0 +1,7 @@
+interface:
+  display_name: "Agent Skills System"
+  short_description: "Portable multi-mode agent operating system"
+  default_prompt: "Use $agent-skills-system to route this task, choose the right mode, and keep one active mode per phase."
+
+policy:
+  allow_implicit_invocation: true
