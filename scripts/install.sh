@@ -5,26 +5,32 @@ usage() {
   cat >&2 <<'EOF'
 Usage:
   ./scripts/install.sh [all|codex|opencode|claude|cursor|windsurf|gemini|continue|aider] /path/to/project
+  ./scripts/install.sh codex-global
 
 Examples:
   ./scripts/install.sh all .
   ./scripts/install.sh claude /path/to/project
   ./scripts/install.sh cursor /path/to/project
+  ./scripts/install.sh codex-global
 EOF
   exit 1
 }
 
 [ "${1-}" ] || usage
-[ "${2-}" ] || usage
 
 TOOL="$1"
-TARGET_DIR="$2"
 ROOT_DIR=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
-ABS_TARGET=$(CDPATH= cd -- "$TARGET_DIR" 2>/dev/null && pwd || true)
+ABS_TARGET=""
 
-if [ -z "$ABS_TARGET" ]; then
-  echo "Target directory does not exist: $TARGET_DIR" >&2
-  exit 1
+if [ "$TOOL" != "codex-global" ]; then
+  [ "${2-}" ] || usage
+  TARGET_DIR="$2"
+  ABS_TARGET=$(CDPATH= cd -- "$TARGET_DIR" 2>/dev/null && pwd || true)
+
+  if [ -z "$ABS_TARGET" ]; then
+    echo "Target directory does not exist: $TARGET_DIR" >&2
+    exit 1
+  fi
 fi
 
 copy_dir_once() {
@@ -51,6 +57,23 @@ copy_file_once() {
   cp "$src" "$dest"
 }
 
+replace_dir_with_backup() {
+  src="$1"
+  dest="$2"
+  backup_root="$3"
+
+  mkdir -p "$(dirname "$dest")"
+  mkdir -p "$backup_root"
+
+  if [ -e "$dest" ]; then
+    backup="$backup_root/$(basename "$dest").bak.$(date +%Y%m%d%H%M%S)"
+    mv "$dest" "$backup"
+    echo "Existing install moved to $backup"
+  fi
+
+  cp -R "$src" "$dest"
+}
+
 append_block_if_missing() {
   dest="$1"
   marker="$2"
@@ -75,6 +98,14 @@ install_canonical_dir() {
 
 install_generic_skill_dir() {
   copy_dir_once "$ROOT_DIR/agent-skills-system" "$ABS_TARGET/.agents/skills/agent-skills-system"
+}
+
+install_codex_global_skill() {
+  codex_home="${CODEX_HOME:-$HOME/.codex}"
+  replace_dir_with_backup \
+    "$ROOT_DIR/agent-skills-system" \
+    "$codex_home/skills/agent-skills-system" \
+    "$codex_home/skill-backups"
 }
 
 install_agents_adapter() {
@@ -164,6 +195,10 @@ case "$TOOL" in
     install_canonical_dir
     install_agents_adapter
     echo "Installed for Codex at $ABS_TARGET"
+    ;;
+  codex-global)
+    install_codex_global_skill
+    echo "Installed global Codex skill at ${CODEX_HOME:-$HOME/.codex}/skills/agent-skills-system"
     ;;
   opencode)
     install_canonical_dir

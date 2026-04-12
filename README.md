@@ -169,6 +169,12 @@ cd skillmaxxing
 - Generic skill tooling can start from [`SKILL.md`](SKILL.md)
 - The canonical source of truth is [`agent-skills-system/SKILL.md`](agent-skills-system/SKILL.md)
 
+Important:
+
+- [`SKILL.md`](SKILL.md) at the repo root is a loader for cloned-source discovery.
+- For Codex or other user-skill installs, copy the [`agent-skills-system/`](agent-skills-system) directory, not the entire repo root into a skills folder.
+- For Codex global installs, use `./scripts/install.sh codex-global` so the canonical skill lands in the right place automatically.
+
 ### Install Into Another Project
 
 Use the installer. For most people, `all` is the right default:
@@ -193,6 +199,7 @@ If a target project already has `AGENTS.md`, `CLAUDE.md`, or `GEMINI.md`, the in
 Use these when you want the harness-native format instead of the shared `all` setup:
 
 ```bash
+./scripts/install.sh codex-global
 ./scripts/install.sh codex /path/to/project
 ./scripts/install.sh opencode /path/to/project
 ./scripts/install.sh claude /path/to/project
@@ -205,6 +212,7 @@ Use these when you want the harness-native format instead of the shared `all` se
 
 Native notes:
 
+- `codex-global` installs `agent-skills-system/` into `~/.codex/skills/agent-skills-system` and moves any previous install to `~/.codex/skill-backups/`
 - `cursor` writes `.cursor/rules/agent-skills-system.mdc`
 - `windsurf` writes `.windsurf/rules/agent-skills-system.md`
 - `gemini` writes `GEMINI.md` and `.agents/skills/agent-skills-system/`
@@ -217,9 +225,10 @@ Native notes:
 #### Codex
 
 ```bash
-mkdir -p ~/.codex/skills
-cp -R agent-skills-system ~/.codex/skills/agent-skills-system
+./scripts/install.sh codex-global
 ```
+
+This installs the canonical skill directory into `~/.codex/skills/agent-skills-system` and moves any previous install to `~/.codex/skill-backups/` so Codex does not see two live skill directories.
 
 #### OpenCode
 
@@ -301,7 +310,7 @@ If you already have `.aider.conf.yml`, merge the printed `read:` entries instead
 
 | Tool | Recommended install | Entry file |
 | --- | --- | --- |
-| Codex | `all` or `codex` | `AGENTS.md` |
+| Codex | `codex-global`, `all`, or `codex` | `~/.codex/skills/agent-skills-system` or `AGENTS.md` |
 | OpenCode | `all` or `opencode` | `AGENTS.md` plus `.agents/skills/agent-skills-system/` |
 | Claude Code | `all` or `claude` | `CLAUDE.md` |
 | Cursor | `all` or `cursor` | `AGENTS.md` or `.cursor/rules/agent-skills-system.mdc` |
@@ -343,7 +352,7 @@ If you already have `.aider.conf.yml`, merge the printed `read:` entries instead
 
 ## Files
 
-- [`SKILL.md`](SKILL.md): root loader for quick discovery and generic tool compatibility.
+- [`SKILL.md`](SKILL.md): repo-root loader for quick discovery and generic tool compatibility. Do not install the repo root as the Codex skill package.
 - [`agent-skills-system/SKILL.md`](agent-skills-system/SKILL.md): canonical source of truth.
 - [`AGENTS.md`](AGENTS.md): shared project instructions for Codex, OpenCode, Cursor, and Windsurf.
 - [`CLAUDE.md`](CLAUDE.md): Claude Code project memory.
