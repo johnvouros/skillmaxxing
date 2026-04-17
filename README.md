@@ -52,7 +52,7 @@ This repo turns that mess into one coherent operating system:
 | --- | --- | --- |
 | Universal core | Defines rules that never conflict | Stops contradiction |
 | Decision system | Sets strict priority order | Resolves speed vs correctness, polish vs simplicity |
-| Mode packs | Keeps six modes separate | Stops personality blending |
+| Mode packs | Define six distinct execution contracts with first moves, required artifacts, switch signals, and hard no's | Stops personality blending |
 | Routing logic | Chooses the right mode for the current bottleneck | Stops random drift |
 | Conflict matrix | Makes tradeoffs explicit | Stops hidden contradictions |
 | Example task | Shows the same task across all modes | Makes the system legible fast |
@@ -106,6 +106,7 @@ This repo is working if you start seeing these changes in behavior:
 
 - The agent names the current bottleneck before it starts.
 - It picks **one mode for the current phase** instead of blending voices.
+- It states the mode's first move and what artifact must exist before it can switch.
 - It states success criteria, not just actions.
 - It explains when it would switch modes and why.
 - Diffs get smaller and more intentional.
@@ -335,6 +336,7 @@ If you already have `.aider.conf.yml`, merge the printed `read:` entries instead
 |-- .agents/skills/agent-skills-system/SKILL.md
 |-- .continue/rules/agent-skills-system.md
 |-- AGENTS.md
+|-- CHANGELOG.md
 |-- CLAUDE.md
 |-- CONVENTIONS.md
 |-- GEMINI.md
@@ -353,6 +355,7 @@ If you already have `.aider.conf.yml`, merge the printed `read:` entries instead
 ## Files
 
 - [`SKILL.md`](SKILL.md): repo-root loader for quick discovery and generic tool compatibility. Do not install the repo root as the Codex skill package.
+- [`CHANGELOG.md`](CHANGELOG.md): conventional record of notable unreleased and released repo changes.
 - [`agent-skills-system/SKILL.md`](agent-skills-system/SKILL.md): canonical source of truth.
 - [`AGENTS.md`](AGENTS.md): shared project instructions for Codex, OpenCode, Cursor, and Windsurf.
 - [`CLAUDE.md`](CLAUDE.md): Claude Code project memory.
