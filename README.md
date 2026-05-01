@@ -8,7 +8,7 @@
 
 <img align="right" width="420" src="assets/hero.svg" alt="skillmaxxing graphic">
 
-Inspired by [forrestchang/andrej-karpathy-skills](https://github.com/forrestchang/andrej-karpathy-skills).
+Inspired by [forrestchang/andrej-karpathy-skills](https://github.com/forrestchang/andrej-karpathy-skills), with practical engineering-loop ideas adapted from [mattpocock/skills](https://github.com/mattpocock/skills).
 
 Portable, production-oriented agent operating system for **Codex**, **OpenCode**, **Claude Code**, **Cursor**, **Windsurf**, **Gemini CLI**, **Continue**, and **Aider**.
 
@@ -54,6 +54,7 @@ This repo turns that mess into one coherent operating system:
 | Decision system | Sets strict priority order | Resolves speed vs correctness, polish vs simplicity |
 | Mode packs | Define six distinct execution contracts with first moves, required artifacts, switch signals, and hard no's | Stops personality blending |
 | Routing logic | Chooses the right mode for the current bottleneck | Stops random drift |
+| Operational loops | Standardizes alignment, durable context, TDD, diagnosis, vertical slicing, and architecture deepening | Gives modes concrete engineering habits |
 | Conflict matrix | Makes tradeoffs explicit | Stops hidden contradictions |
 | Example task | Shows the same task across all modes | Makes the system legible fast |
 
@@ -108,8 +109,11 @@ This repo is working if you start seeing these changes in behavior:
 - It picks **one mode for the current phase** instead of blending voices.
 - It states the mode's first move and what artifact must exist before it can switch.
 - It states success criteria, not just actions.
+- It picks a concrete operational loop when the work calls for one.
 - It explains when it would switch modes and why.
 - Diffs get smaller and more intentional.
+- Debugging starts with a reproduction loop before theories.
+- Large plans become vertical, independently verifiable slices.
 - MVP tasks stop turning into architecture projects.
 - Production tasks stop being treated like disposable prototypes.
 - Conversations become clearer.
@@ -326,6 +330,8 @@ If you already have `.aider.conf.yml`, merge the printed `read:` entries instead
 - `Should this task start in karpathy_mode or theo_mode? Explain the switch point.`
 - `Apply the agent skills system and build the smallest complete unit first.`
 - `Use the agent skills system to resolve a speed vs correctness tradeoff.`
+- `Use the agent skills system to diagnose this bug and build the feedback loop first.`
+- `Route this feature and package it into vertical slices with acceptance criteria.`
 - `We have validation but weak UX. Re-route this task using the system.`
 
 ## Repo Layout

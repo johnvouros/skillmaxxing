@@ -279,7 +279,54 @@ description: Use when designing, routing, or operating a production agent system
 - Do not run `karpathy_mode` and `amjad_mode` in the same phase. One reduces scope to a single clear loop, the other expands execution capacity.
 - Do not run `swyx_mode` as a replacement for `theo_mode` on critical correctness boundaries.
 
-## 5. CONFLICT MATRIX
+## 5. OPERATIONAL LOOPS
+
+These loops turn the mode system into repeatable engineering behavior. Use them inside the selected mode; do not treat them as extra modes.
+
+### Alignment Loop
+- Use when the outcome, audience, current behavior, desired behavior, or non-goals are unclear enough to change the implementation.
+- First inspect existing code, docs, issues, and tests for answers before asking the user.
+- Ask only blocking questions. Prefer one concrete question at a time, and include the recommended answer when it helps the user decide.
+- Do not continue debating once the smallest complete unit, acceptance criteria, and stopping point are clear.
+
+### Durable Context Loop
+- Use when a term, constraint, decision, or handoff would otherwise live only in chat.
+- Keep domain language in `CONTEXT.md` or, for multi-context repos, a root `CONTEXT-MAP.md` that points to context-specific files.
+- Record important decisions in `docs/adr/` only when they are hard to reverse, surprising without context, and the result of a real tradeoff.
+- Create context files lazily. Do not invent documentation structure before there is a real fact to preserve.
+- Use the project's chosen vocabulary in issue titles, test names, module names, and handoffs. If the user or code uses a term ambiguously, resolve it explicitly.
+
+### Feedback Loop
+- Use when building or changing behavior.
+- Prefer behavior checks through public interfaces over tests coupled to private implementation details.
+- Work in vertical tracer bullets: one failing behavior check, one minimal implementation, one passing result, then repeat.
+- Never bulk-write all tests before implementation. Each test should respond to what the previous slice taught you.
+- Refactor only while the feedback signal is green, and rerun the signal after each meaningful refactor.
+
+### Diagnosis Loop
+- Use when debugging bugs, regressions, flakes, or performance problems.
+- Build a fast, deterministic reproduction before deep theorizing. Good loops include failing tests, HTTP scripts, CLI fixtures, browser scripts, replayed traces, throwaway harnesses, fuzz loops, bisection, and differential checks.
+- Confirm the loop reproduces the user's actual symptom, not a nearby failure.
+- Generate ranked, falsifiable hypotheses before changing code. Each probe should test one prediction.
+- Tag temporary instrumentation with a unique prefix and remove it before declaring done.
+- Finish by rerunning the original repro and adding or documenting the regression check. If no correct test seam exists, name that as an architecture finding.
+
+### Work Packaging Loop
+- Use when turning a plan into tasks for humans or agents.
+- Slice work vertically so each issue or handoff delivers a narrow, complete, independently verifiable path through the system.
+- Mark slices that require human judgment as HITL and slices that can be implemented independently as AFK.
+- Every handoff should include current behavior, desired behavior, key interfaces, acceptance criteria, blockers, and out-of-scope items.
+- Prefer behavioral contracts over brittle instructions. Avoid stale line numbers or overly specific file paths in long-lived agent briefs.
+
+### Architecture Deepening Loop
+- Use when the bottleneck is tangled change, poor test seams, duplicated knowledge, or shallow pass-through modules.
+- Evaluate modules by depth: how much useful behavior sits behind how small and stable an interface.
+- Apply the deletion test: if deleting a module only moves complexity into callers, the module was shallow; if deleting it spreads important complexity across callers, it was earning its keep.
+- Treat the interface as the test surface. If meaningful behavior cannot be tested through the interface, the shape is probably wrong.
+- Add seams only where variation is real or imminent enough to justify them. One adapter is often a hypothetical seam; two adapters make the seam real.
+- Use `seam` for code interfaces callers and tests cross. Use `boundary` for ownership, trust, data, auth, billing, and deployment concerns.
+
+## 6. CONFLICT MATRIX
 
 ### `levels_mode` vs `karpathy_mode`
 - Contradiction: Speed to market versus first-principles reduction.
@@ -309,7 +356,7 @@ description: Use when designing, routing, or operating a production agent system
 - Contradiction: Compounding ecosystem artifacts versus blunt near-term validation.
 - Resolution: Use `levels_mode` for immediate proof. Add `swyx_mode` when the learnings are worth turning into reusable prompts, docs, evals, or distribution assets.
 
-## 6. SAME TASK, MULTIPLE MODES
+## 7. SAME TASK, MULTIPLE MODES
 
 Example task: `Build a simple SaaS landing page`
 
@@ -343,21 +390,22 @@ Example task: `Build a simple SaaS landing page`
 - Keep the prompt, brand constraints, and acceptance criteria in project artifacts so agents can collaborate.
 - Optimize for fast iteration in a running environment rather than long planning docs.
 
-## 7. FINAL OUTPUT FORMAT
+## 8. FINAL OUTPUT FORMAT
 
 ### Skill Contract
 - One active mode per phase.
 - One shared decision hierarchy across all phases.
 - Sequential handoffs are allowed; blended personalities are not.
 - Every routed task should state the current bottleneck, the mode's first move, the required artifact before switching, and the switch signal.
-- Every task should leave behind durable context: acceptance criteria, chosen mode, and reason for any mode switch.
+- Every task should leave behind durable context: acceptance criteria, chosen mode, chosen operational loop when relevant, and reason for any mode switch.
 
 ### Default Execution Order
 1. Clarify the bottleneck.
 2. Select the primary mode.
-3. Execute one smallest complete unit.
-4. Measure the result.
-5. Switch modes only if the bottleneck changes.
+3. Choose the operational loop that fits the work, if any.
+4. Execute one smallest complete unit.
+5. Measure the result.
+6. Switch modes only if the bottleneck changes.
 
 ### Minimal Operating Rule
 - If two modes disagree and the hierarchy does not immediately settle it, fall back to the highest-safe option in this order:
